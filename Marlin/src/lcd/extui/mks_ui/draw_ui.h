@@ -69,7 +69,6 @@
 #include "draw_max_feedrate_settings.h"
 #include "draw_tmc_step_mode_settings.h"
 #include "draw_level_settings.h"
-#include "draw_z_offset_wizard.h"
 #include "draw_tramming_pos_settings.h"
 #include "draw_auto_level_offset_settings.h"
 #include "draw_filament_change.h"
@@ -144,8 +143,8 @@
 
   #define PARA_UI_ARROW_V          12
 
-  #define PARA_UI_BACK_POS_X        400
-  #define PARA_UI_BACK_POS_Y        270
+  #define PARA_UI_BACL_POS_X        400
+  #define PARA_UI_BACL_POS_Y        270
 
   #define PARA_UI_TURN_PAGE_POS_X   320
   #define PARA_UI_TURN_PAGE_POS_Y   270
@@ -179,7 +178,7 @@
 #endif // ifdef TFT35
 
 #ifdef __cplusplus
-  extern "C" {
+  extern "C" { /* C-declarations for C++ */
 #endif
 
 extern char public_buf_m[100];
@@ -236,9 +235,9 @@ typedef struct UI_Config_Struct {
                            eStepMax = 10;
   // Extruder speed (mm/s)
   uint8_t extruSpeed;
-  static constexpr uint8_t eSpeedH = 20,
+  static constexpr uint8_t eSpeedH =  1,
                            eSpeedN = 10,
-                           eSpeedL =  1;
+                           eSpeedL = 20;
   uint8_t print_state;
   uint8_t stepPrintSpeed;
   uint8_t waitEndMoves;
@@ -267,12 +266,11 @@ typedef enum {
   PRINT_FILE_UI,
   PRINTING_UI,
   MOVE_MOTOR_UI,
-  Z_OFFSET_WIZARD_UI,
   OPERATE_UI,
   PAUSE_UI,
   EXTRUSION_UI,
   FAN_UI,
-  PREHEAT_UI,
+  PRE_HEAT_UI,
   CHANGE_SPEED_UI,
   TEMP_UI,
   SET_UI,
@@ -306,14 +304,15 @@ typedef enum {
   MACHINE_SETTINGS_UI,
   TEMPERATURE_SETTINGS_UI,
   MOTOR_SETTINGS_UI,
-  MACHINE_TYPE_UI,
+  MACHINETYPE_UI,
   STROKE_UI,
   HOME_DIR_UI,
   ENDSTOP_TYPE_UI,
   FILAMENT_SETTINGS_UI,
+  LEVELING_SETTIGNS_UI,
   LEVELING_PARA_UI,
   DELTA_LEVELING_PARA_UI,
-  MANUAL_LEVELING_POSITION_UI,
+  MANUAL_LEVELING_POSIGION_UI,
   MAXFEEDRATE_UI,
   STEPS_UI,
   ACCELERATION_UI,
@@ -326,7 +325,7 @@ typedef enum {
   DOUBLE_Z_UI,
   ENABLE_INVERT_UI,
   NUMBER_KEY_UI,
-  BABYSTEP_UI,
+  BABY_STEP_UI,
   ERROR_MESSAGE_UI,
   PAUSE_POS_UI,
   TMC_CURRENT_UI,
@@ -337,7 +336,7 @@ typedef enum {
   ENCODER_SETTINGS_UI,
   TOUCH_CALIBRATION_UI,
   GCODE_UI,
-  MEDIA_SELECT_UI
+  MEDIA_SELECT_UI,
 } DISP_STATE;
 
 typedef struct {
@@ -469,7 +468,6 @@ void lv_eom_hook(void *);
 void GUI_RefreshPage();
 void clear_cur_ui();
 void draw_return_ui();
-void goto_previous_ui();
 void sd_detection();
 void gCfg_to_spiFlah();
 void print_time_count();
