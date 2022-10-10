@@ -458,8 +458,7 @@ inline void manage_inactivity(const bool no_stepper_sleep=false) {
     // KILL the machine
     // ----------------------------------------------------------------
     if (killCount >= KILL_DELAY) {
-      SERIAL_ERROR_MSG(STR_KILL_BUTTON);
-      kill();
+      kill(STR_KILL_BUTTON, nullptr, false);
     }
   #endif
 

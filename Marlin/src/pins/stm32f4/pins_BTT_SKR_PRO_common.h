@@ -532,4 +532,4 @@
 #define ESP_WIFI_MODULE_GPIO2_PIN           PF15
 
 //Adding kill pin for emergency switch off
-//#define KILL_PIN                            PD0
+#define KILL_PIN                            PD0
